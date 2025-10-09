@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,39 +6,25 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
 
-    [SerializeField] private float speed = 7f;
+    [SerializeField] private float moveSpeed = 7f;
+    [SerializeField] private GameInput gameInput;
+    [SerializeField] private LayerMask staticObjectLayer;
+    [SerializeField] private CharacterController characterController;
 
     // Update is called once per frame
     private void Update()
     {
-        Vector2 inputVector = getMovementInput();
-
-        inputVector = inputVector.normalized;
-        Vector3 movementVector = new Vector3(inputVector.x, 0f, inputVector.y);
-        transform.position += movementVector * speed * Time.deltaTime;
+        testHandleMovement();
     }
 
-    private Vector2 getMovementInput()
+    private void testHandleMovement()
     {
-        Vector2 movementDirection = new Vector2();
+        // Input Vector returned from GameInput Class which uses Unity's new input system
+        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+        float moveAmount = moveSpeed * Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            movementDirection.y = +1;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            movementDirection.y = -1;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            movementDirection.x = -1;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            movementDirection.x = +1;
-        }
+        Vector3 movementVector = new Vector3(inputVector.x, 0f, inputVector.y) * moveAmount;
 
-        return movementDirection;
+        characterController.Move(movementVector);
     }
 }
