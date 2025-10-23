@@ -6,6 +6,8 @@ TagManager:
   tags:
   - IronOre
   - GoldOre
+  - RubyOre
+  - RareOre
   layers:
   - Default
   - TransparentFX
