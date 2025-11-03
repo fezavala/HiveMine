@@ -3,15 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "OreGenerationScript", menuName = "ScriptableObjects/OreGenerationScript")]
-public class OreValueGeneration : ScriptableObject
+public class OreValueGeneration : MonoBehaviour
 {
     public String oreType;
     public int totalAmount;
     //public GameObject[] oreObjects;
 
     // Start is called before the first frame update
-    public void GenerateOreValues()
+    void Start()
     {
         GameObject[] oreObjects = GameObject.FindGameObjectsWithTag(oreType);
 
