@@ -2,22 +2,97 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
+// This is the player class, originally it was supposed to be the base entity class for all entities but
+// since scripts are now component-based, it makes more sense to have dedicated classes for now.
+[RequireComponent(typeof(HealthComponent))]  // <- This is a thing btw
 public class Entity : MonoBehaviour
 {
-
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private GameInput gameInput;
-    [SerializeField] private LayerMask staticObjectLayer;
+    [SerializeField] private LayerMask staticObjectLayer;  // Note: This doesn't do anything anymore
     [SerializeField] private CharacterController characterController;
+    [SerializeField] private Transform damagePointTransform;
+    
+    private HealthComponent healthComponent;
 
-    // Update is called once per frame
-    private void Update()
+    private float tempDamageRange = 1.5f;  // This lines up with damagePointTransform
+
+    private void Start()
     {
-        testHandleMovement();
+        // Subscribing to health component
+        healthComponent = GetComponent<HealthComponent>();
+        healthComponent.OnZeroHPLeft += HealthComponent_OnZeroHPLeft;
+
+        tempDamageRange = (damagePointTransform.position - transform.position).magnitude;
     }
 
-    private void testHandleMovement()
+    private void Update()
+    {
+        TestHandleMovement();
+        UpdateDamagePointVisual();
+        TestDamageTaken();
+        TestDealDamage();
+    }
+    private void HealthComponent_OnZeroHPLeft(object sender, EventArgs e)
+    {
+        // TODO: Implement death state and processing
+        Debug.Log("Player has died!");
+    }
+
+    // Note: temporary for now
+    private void UpdateDamagePointVisual()
+    {
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            Vector3 mouseWorldPosition = hit.point;
+            mouseWorldPosition.y = 0f;
+            Vector3 mouseDirection = mouseWorldPosition - transform.position;
+            mouseDirection = mouseDirection.normalized;
+
+            damagePointTransform.position = transform.position + mouseDirection * tempDamageRange;
+        }
+    }
+
+    private void TestDealDamage()
+    {
+        bool dealDamage = Input.GetKeyDown(KeyCode.Mouse0);
+        if (dealDamage)
+        {
+            Vector3 damageDirection = (damagePointTransform.position - transform.position).normalized;
+            if (Physics.Raycast(transform.position, damageDirection, out RaycastHit raycastHit, tempDamageRange, staticObjectLayer))
+            {
+                if(raycastHit.transform.TryGetComponent(out HealthComponent healthComponent))
+                {
+                    // Has healthComponent
+                    // Dealing 1 tool damage to block 
+                    healthComponent.DealDamage(1, true);
+                }
+                else
+                {
+                    Debug.Log(raycastHit.transform.name + " does not have a HealthComponent");
+                }
+            }
+        }
+    }
+
+    // Temporary Method testing if player dies (they die)
+    private void TestDamageTaken()
+    {
+        bool takeDamage = Input.GetKeyDown(KeyCode.T);
+        if (takeDamage)
+        {
+            healthComponent.DealDamage(4);
+            Debug.Log("Took 1 heart of damage. Health left(4HP = 1 Heart): " + healthComponent.GetCurrentHP());
+        }
+    }
+
+    private void TestHandleMovement()
     {
         // Input Vector returned from GameInput Class which uses Unity's new input system
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
@@ -26,5 +101,6 @@ public class Entity : MonoBehaviour
         Vector3 movementVector = new Vector3(inputVector.x, 0f, inputVector.y) * moveAmount;
 
         characterController.Move(movementVector);
+        transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
     }
 }
