@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 95249921021982864}
   - component: {fileID: 7686823880058279946}
   - component: {fileID: 4014802906771324198}
-  - component: {fileID: 8056038911800808462}
   m_Layer: 6
   m_Name: TopCube
   m_TagString: Untagged
@@ -62,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8de29ac5cc662e04b8a34eea4cfcc00e, type: 2}
+  - {fileID: 2100000, guid: aaa5011ed586dd445b74ce09f5afefbb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,27 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8056038911800808462
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5934163216782333927}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7241746232401380971
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +94,6 @@ GameObject:
   - component: {fileID: 908900785268153637}
   - component: {fileID: 4886562513437386040}
   - component: {fileID: 2762522480081309717}
-  - component: {fileID: 7072207484962061157}
   m_Layer: 6
   m_Name: BottomCube
   m_TagString: Untagged
@@ -167,7 +144,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8de29ac5cc662e04b8a34eea4cfcc00e, type: 2}
+  - {fileID: 2100000, guid: aaa5011ed586dd445b74ce09f5afefbb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -189,27 +166,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7072207484962061157
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7241746232401380971}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8435793103191363184
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,11 +176,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2822899026887620993}
   - component: {fileID: 2030262033916508075}
-<<<<<<< HEAD:Assets/Prefabs/DestructibleWalls/_DestructableWall.prefab
   - component: {fileID: 5484764683036270593}
   - component: {fileID: 6711853165049848543}
-=======
->>>>>>> parent of 81279ae (Updated Floor and started inventory UI):Assets/Prefabs/PinkGem.prefab
   m_Layer: 6
   m_Name: _DestructableWall
   m_TagString: Untagged
@@ -270,7 +223,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 1, z: 0}
-<<<<<<< HEAD:Assets/Prefabs/DestructibleWalls/_DestructableWall.prefab
 --- !u!114 &5484764683036270593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,8 +233,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc13f9e33e776484a90a2038153fd5b6, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6711853165049848543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,9 +245,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9d845307d21dcf468636818231bfc1f, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHP: 1
   defense: 0
-=======
->>>>>>> parent of 81279ae (Updated Floor and started inventory UI):Assets/Prefabs/PinkGem.prefab
