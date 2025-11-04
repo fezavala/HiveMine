@@ -45,11 +45,13 @@ public class AttackComponent : MonoBehaviour
 
     private void PerformStraightAttack(Vector3 attackDirectionNormalized)
     {
+        //TODO: To handle enemy attacks, two attacks are going to be performed, one for blocks and one for enemies. These should be separate
+
+        // Basic raycast sequence
         if (Physics.Raycast(transform.position, attackDirectionNormalized, out RaycastHit raycastHit, currentWeaponSO.weaponAttackRange, LayerMask.GetMask(LayerMask.LayerToName(ATTACK_LAYER))))
         {
             if (raycastHit.transform.TryGetComponent(out HealthComponent healthComponent))
             {
-                // Has healthComponent
                 bool performToolDamage = raycastHit.transform.TryGetComponent(out DestructibleBlock destructibleBlock);
                 int damage = performToolDamage ? currentWeaponSO.toolDamage : currentWeaponSO.weaponDamage;
                 healthComponent.DealDamage(damage, performToolDamage);

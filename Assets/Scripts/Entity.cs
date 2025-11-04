@@ -14,6 +14,7 @@ public class Entity : MonoBehaviour
     [SerializeField] private LayerMask staticObjectLayer;  // Note: This doesn't do anything anymore
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Transform damagePointTransform;
+    [SerializeField] private AttackComponent attackComponent;
     
     private HealthComponent healthComponent;
 
@@ -35,6 +36,7 @@ public class Entity : MonoBehaviour
         TestDamageTaken();
         TestDealDamage();
     }
+
     private void HealthComponent_OnZeroHPLeft(object sender, EventArgs e)
     {
         // TODO: Implement death state and processing
@@ -61,23 +63,17 @@ public class Entity : MonoBehaviour
 
     private void TestDealDamage()
     {
+        if (attackComponent == null)
+        {
+            Debug.Log(gameObject.name + " has no AttackComponent, cannot perform attack");
+            return;
+        }
+
         bool dealDamage = Input.GetKeyDown(KeyCode.Mouse0);
         if (dealDamage)
         {
             Vector3 damageDirection = (damagePointTransform.position - transform.position).normalized;
-            if (Physics.Raycast(transform.position, damageDirection, out RaycastHit raycastHit, tempDamageRange, staticObjectLayer))
-            {
-                if(raycastHit.transform.TryGetComponent(out HealthComponent healthComponent))
-                {
-                    // Has healthComponent
-                    // Dealing 1 tool damage to block 
-                    healthComponent.DealDamage(1, true);
-                }
-                else
-                {
-                    Debug.Log(raycastHit.transform.name + " does not have a HealthComponent");
-                }
-            }
+            attackComponent.PerformAttack(damageDirection);
         }
     }
 

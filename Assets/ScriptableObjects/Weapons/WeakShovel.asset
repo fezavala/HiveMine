@@ -17,3 +17,7 @@ MonoBehaviour:
   weaponType: 0
   weaponDamage: 1
   toolDamage: 1
+  weaponPenetration: 1
+  weaponAttackRange: 1.5
+  weaponAttackSpeed: 1
+  weaponAttackCooldown: 0
