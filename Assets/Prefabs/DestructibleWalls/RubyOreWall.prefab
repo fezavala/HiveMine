@@ -252,6 +252,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4365538061963388396}
+    - targetCorrespondingSourceObject: {fileID: 8435793103191363184, guid: 769de191aa08b404bb18f0b5409a4c0e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8356219336873014722}
   m_SourcePrefab: {fileID: 100100000, guid: 769de191aa08b404bb18f0b5409a4c0e, type: 3}
 --- !u!4 &3745638186226424494 stripped
 Transform:
@@ -278,3 +282,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oreAmount: 0
+--- !u!114 &-8356219336873014722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7045363203180457311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a02ab94d7472274aab5ad7ab30b091c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oreAmount: 0
+  type: Ruby
