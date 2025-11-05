@@ -49,11 +49,21 @@ public class OreValueGeneration : ScriptableObject
 
         for (int i =0; i<count-1;i++)
         {
-            result[i] = Mathf.RoundToInt(totalAmount * (weights[i]/weightSum));
+            result[i] = Mathf.Max(1, Mathf.RoundToInt(totalAmount * (weights[i]/weightSum)));
             assigned += result[i];
         }
         //last one
         result[count-1] = totalAmount - assigned;
+
+        if (result[count - 1] <= 0)
+        {
+            result[count - 1] = 1;
+            // reduce one randomly from others to keep total correct
+            int reduceIndex = UnityEngine.Random.Range(0, count - 1);
+            if (result[reduceIndex] > 1)
+                result[reduceIndex]--;
+        }
+
         return result;
     }
 }

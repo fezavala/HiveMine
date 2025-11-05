@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dbf0e6b456ad2d439bbfca19210e7e2, type: 3}
   m_Name: GoldGenerationScript
   m_EditorClassIdentifier: 
-  oreType: GoldOre
-  totalAmount: 100
+  totalAmount: 80

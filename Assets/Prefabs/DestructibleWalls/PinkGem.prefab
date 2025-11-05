@@ -266,6 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e5c357f182c12f449e0b7278513f522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  oreData: {fileID: 11400000, guid: d36e2433960143b49ada35c62caf4d23, type: 2}
   oreAmount: 0
   type: Rare
 --- !u!4 &5624406606245744003 stripped
