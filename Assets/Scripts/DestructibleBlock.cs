@@ -19,6 +19,12 @@ public class DestructibleBlock : MonoBehaviour
     private void HealthComponent_OnZeroHPLeft(object sender, System.EventArgs e)
     {
         Debug.Log("Destroying " + gameObject.name);
+
+        // if this is an OreBlock, let OreBlock know its being destroyed before destroying it
+        if (gameObject.TryGetComponent<OreBlock>(out OreBlock oreBlock)) {
+            oreBlock.setBroken();
+        }
+
         Destroy(gameObject);
     }
 }

@@ -251,10 +251,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8435793103191363184, guid: 769de191aa08b404bb18f0b5409a4c0e,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8054348317690316079}
-    - targetCorrespondingSourceObject: {fileID: 8435793103191363184, guid: 769de191aa08b404bb18f0b5409a4c0e,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: -4224239582226983933}
   m_SourcePrefab: {fileID: 100100000, guid: 769de191aa08b404bb18f0b5409a4c0e, type: 3}
 --- !u!4 &736696890508564840 stripped
@@ -269,19 +265,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3248703222529614057}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8054348317690316079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6342268390767472281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0f9fc53f0c499b419724f17cf4dee13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  oreAmount: 0
 --- !u!114 &-4224239582226983933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,5 +277,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 944ed6010cb14b748b6324d6e107103d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  oreData: {fileID: 11400000, guid: 35cd0360c46ce0a4f8f5d63239efd1aa, type: 2}
   oreAmount: 0
   type: Iron
