@@ -9,7 +9,7 @@ using UnityEngine;
 // A reusable HealthComponent class that can go into any object that requires a health stat.
 public class HealthComponent : MonoBehaviour
 {
-    [SerializeField, Range(0f, 50f)] private int maxHP;
+    [SerializeField, Range(0f, 100f)] private int maxHP;
     [SerializeField, Range(0f, 50f)] private int defense;  // Incoming damage is subtracted by this value
 
     private const int MIN_HP = 0;
@@ -30,6 +30,8 @@ public class HealthComponent : MonoBehaviour
     }
     
     public int GetCurrentHP() { return currentHP; }
+
+    public int GetMaxHP() { return maxHP; }
     public int GetDefense() { return defense; }
     public void SetDefense(int defenseValue) 
     {

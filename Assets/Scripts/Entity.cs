@@ -75,7 +75,6 @@ public class Entity : MonoBehaviour
 
     private void TestWeaponSwap()
     {
-
         bool swapWeapon = Input.GetKeyDown(KeyCode.F);
         if (swapWeapon)
         {
@@ -98,8 +97,6 @@ public class Entity : MonoBehaviour
 
     private void TestDealDamage()
     {
-        
-
         bool dealDamage = Input.GetKeyDown(KeyCode.Mouse0);
         if (dealDamage)
         {
@@ -119,8 +116,8 @@ public class Entity : MonoBehaviour
         bool takeDamage = Input.GetKeyDown(KeyCode.T);
         if (takeDamage)
         {
-            healthComponent.DealDamage(4);
-            Debug.Log("Took 1 heart of damage. Health left(4HP = 1 Heart): " + healthComponent.GetCurrentHP());
+            healthComponent.DealDamage(1);
+            Debug.Log("Took 1/4 heart of damage. Health left(4HP = 1 Heart): " + healthComponent.GetCurrentHP());
         }
     }
 
