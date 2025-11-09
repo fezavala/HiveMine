@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: GoldOreInventory
   m_EditorClassIdentifier: 
   oreType: Gold
-  AmountInInventory: 0
+  AmountInInventory: 40
