@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: RareOreInventory
   m_EditorClassIdentifier: 
   oreType: Rare
-  AmountInInventory: 0
+  AmountInInventory: 40

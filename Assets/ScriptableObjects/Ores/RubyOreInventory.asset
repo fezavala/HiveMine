@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: RubyOreInventory
   m_EditorClassIdentifier: 
   oreType: Ruby
-  AmountInInventory: 0
+  AmountInInventory: 40

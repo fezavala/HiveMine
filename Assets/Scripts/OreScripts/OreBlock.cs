@@ -21,7 +21,6 @@ public class OreBlock : MonoBehaviour
 
     public void setBroken()
     {
-        //isBroken = true;
         inventory.AddOre(oreAmount, oreData.oreType); 
         //Debug.Log("IM BEING DESTROYED");
 

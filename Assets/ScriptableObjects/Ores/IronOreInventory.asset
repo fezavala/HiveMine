@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: IronOreInventory
   m_EditorClassIdentifier: 
   oreType: Iron
-  AmountInInventory: 0
+  AmountInInventory: 44

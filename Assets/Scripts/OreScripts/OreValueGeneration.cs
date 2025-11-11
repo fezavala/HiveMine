@@ -52,6 +52,7 @@ public class OreValueGeneration : ScriptableObject
             result[i] = Mathf.Max(1, Mathf.RoundToInt(totalAmount * (weights[i]/weightSum)));
             assigned += result[i];
         }
+
         //last one
         result[count-1] = totalAmount - assigned;
 
@@ -63,6 +64,7 @@ public class OreValueGeneration : ScriptableObject
             if (result[reduceIndex] > 1)
                 result[reduceIndex]--;
         }
+        
 
         return result;
     }
