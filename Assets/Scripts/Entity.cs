@@ -15,21 +15,10 @@ public class Entity : MonoBehaviour
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Transform damagePointTransform;
     [SerializeField] private AttackComponent attackComponent;
-
-    [SerializeField] private WeaponSO[] weaponSOs;
     
     private HealthComponent healthComponent;
 
     private float tempDamageRange = 1.5f;  // This lines up with damagePointTransform
-    private int weaponSOIndex = 0;
-
-    // Event triggered by swapping out currently equipped weapon
-    // TODO: This should be an inventory script event, not an entity event
-    public event EventHandler<OnEquipableSwappedArgs> OnEquipableSwapped;
-    public class OnEquipableSwappedArgs : EventArgs
-    {
-        public WeaponSO equipableSO;
-    }
 
     private void Start()
     {
@@ -37,7 +26,19 @@ public class Entity : MonoBehaviour
         healthComponent = GetComponent<HealthComponent>();
         healthComponent.OnZeroHPLeft += HealthComponent_OnZeroHPLeft;
 
+        Inventory.Instance.OnEquipableSwapped += Inventory_OnEquipableSwapped;
+
         tempDamageRange = (damagePointTransform.position - transform.position).magnitude;
+    }
+
+    private void Inventory_OnEquipableSwapped(object sender, Inventory.OnEquipableSwappedArgs e)
+    {
+        if (attackComponent == null)
+        {
+            Debug.LogError(gameObject.name + " has no Attack Component to set a swapped weapon to!");
+            return;
+        }
+        attackComponent.setWeaponSO(e.equipableSO);
     }
 
     private void Update()
@@ -46,7 +47,6 @@ public class Entity : MonoBehaviour
         UpdateDamagePointVisual();
         TestDamageTaken();
         TestDealDamage();
-        TestWeaponSwap(); 
     }
 
     private void HealthComponent_OnZeroHPLeft(object sender, EventArgs e)
@@ -73,27 +73,6 @@ public class Entity : MonoBehaviour
         }
     }
 
-    private void TestWeaponSwap()
-    {
-        bool swapWeapon = Input.GetKeyDown(KeyCode.F);
-        if (swapWeapon)
-        {
-            if (attackComponent == null)
-            {
-                Debug.Log(gameObject.name + " has no AttackComponent, cannot swap weapon!");
-                return;
-            }
-            if (weaponSOs.Length > 0)
-            {
-                weaponSOIndex = (weaponSOIndex + 1) % weaponSOs.Length;
-                attackComponent.setWeaponSO(weaponSOs[weaponSOIndex]);
-                OnEquipableSwapped?.Invoke(this, new OnEquipableSwappedArgs
-                {
-                    equipableSO = weaponSOs[weaponSOIndex]
-                });
-            }
-        }
-    }
 
     private void TestDealDamage()
     {
@@ -110,7 +89,7 @@ public class Entity : MonoBehaviour
         }
     }
 
-    // Temporary Method testing if player dies (they die)
+    // Temporary Method testing if player dies
     private void TestDamageTaken()
     {
         bool takeDamage = Input.GetKeyDown(KeyCode.T);

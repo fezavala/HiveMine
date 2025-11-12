@@ -30,7 +30,7 @@ public class AttackComponent : MonoBehaviour
     {
         if (currentWeaponSO == null)
         {
-            Debug.LogError("No WeaponSO assigned to AttackComponent on " + gameObject.name + ", cannot perform attack!");
+            Debug.Log("No WeaponSO assigned to AttackComponent on " + gameObject.name + ", cannot perform attack!");
             return;
         }
 
@@ -67,18 +67,5 @@ public class AttackComponent : MonoBehaviour
     {
         //TODO: Make swing attack
         PerformStraightAttack(attackDirectionNormalized);
-    }
-
-
-    // Start is called before the first frame update
-    private void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-        
     }
 }
