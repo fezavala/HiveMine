@@ -28,7 +28,15 @@ public class Entity : MonoBehaviour
 
         Inventory.Instance.OnEquipableSwapped += Inventory_OnEquipableSwapped;
 
+        gameInput.OnInteractAction += GameInput_OnInteractAction;
+
         tempDamageRange = (damagePointTransform.position - transform.position).magnitude;
+    }
+
+    // The interact action will for now be linked to interacting with the crafting table
+    private void GameInput_OnInteractAction(object sender, EventArgs e)
+    {
+        TestCraftingInteraction();
     }
 
     private void Inventory_OnEquipableSwapped(object sender, Inventory.OnEquipableSwappedArgs e)
@@ -47,30 +55,26 @@ public class Entity : MonoBehaviour
         UpdateDamagePointVisual();
         TestDamageTaken();
         TestDealDamage();
-        TestCraftingInteraction();  // This is really temporary, will be changed to a component that processes interactions
     }
 
+    // This may be temporary and replaced with a more complex interaction system, with interaction locks when the players state should prevent interactions
     private void TestCraftingInteraction()
     {
-        bool interaction = Input.GetKeyDown(KeyCode.E);
-        if (interaction)
+        float playerInteractionRadius = 2f;  // This should prolly be a field
+        Collider[] detectedObjects = Physics.OverlapSphere(transform.position, playerInteractionRadius, staticObjectLayer);
+        if (detectedObjects.Length > 0)
         {
-            float playerInteractionRadius = 2f;
-            Collider[] detectedObjects = Physics.OverlapSphere(transform.position, playerInteractionRadius, staticObjectLayer);
-            if (detectedObjects.Length > 0)
+            // Break makes it so that only one object can be interacted with at a time, we can add a distance check for interactions later
+            foreach (Collider coll in detectedObjects)
             {
-                // Break makes it so that only one object can be interacted with at a time, we can add a distance check for interactions later
-                foreach (Collider coll in detectedObjects)
+                if (coll.transform.TryGetComponent(out IUsable interactable))
                 {
-                    if (coll.transform.TryGetComponent(out IUsable interactable))
-                    {
-                        Debug.Log("Interactable detected!");
-                        interactable.Interact();
-                        break;
-                    }
+                    Debug.Log("Interactable detected!");
+                    interactable.Interact();
+                    break;
                 }
             }
-        }
+            }
     }
 
     private void HealthComponent_OnZeroHPLeft(object sender, EventArgs e)

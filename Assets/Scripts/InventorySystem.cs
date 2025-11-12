@@ -13,6 +13,8 @@ public class Inventory : MonoBehaviour
     // Singleton pattern for inventory since there will only be 1 inventory
     public static Inventory Instance { get; private set; }
 
+    [SerializeField] private GameInput gameInput;
+
     [SerializeField] private GameObject inventoryScreenUI;
 
     [Header("OreCounters")]
