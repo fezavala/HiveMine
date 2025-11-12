@@ -146,6 +146,7 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Temporary weapon swap at start of game to show equipable object immediately
         if (frameOneWeaponSwap)
         {
             // If the weapon inventory has tools, let the player equip it

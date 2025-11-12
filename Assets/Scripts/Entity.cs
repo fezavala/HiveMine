@@ -47,6 +47,30 @@ public class Entity : MonoBehaviour
         UpdateDamagePointVisual();
         TestDamageTaken();
         TestDealDamage();
+        TestCraftingInteraction();  // This is really temporary, will be changed to a component that processes interactions
+    }
+
+    private void TestCraftingInteraction()
+    {
+        bool interaction = Input.GetKeyDown(KeyCode.E);
+        if (interaction)
+        {
+            float playerInteractionRadius = 2f;
+            Collider[] detectedObjects = Physics.OverlapSphere(transform.position, playerInteractionRadius, staticObjectLayer);
+            if (detectedObjects.Length > 0)
+            {
+                // Break makes it so that only one object can be interacted with at a time, we can add a distance check for interactions later
+                foreach (Collider coll in detectedObjects)
+                {
+                    if (coll.transform.TryGetComponent(out IUsable interactable))
+                    {
+                        Debug.Log("Interactable detected!");
+                        interactable.Interact();
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     private void HealthComponent_OnZeroHPLeft(object sender, EventArgs e)

@@ -6,9 +6,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static TreeEditor.TreeEditorHelper;
 
-public class CraftingBench : MonoBehaviour
+public class CraftingBench : MonoBehaviour, IUsable
 {
-    public static CraftingBench Instance;
+    public static CraftingBench Instance { get; private set; }
     [SerializeField] private GameObject craftingMenuUI;
     [SerializeField] private GameObject recipeSlotUI;
     [SerializeField] private CraftingRecipe[] craftingRecipes;
@@ -170,6 +170,17 @@ public class CraftingBench : MonoBehaviour
                 
             }
         }
+    }
+
+    public void Interact()
+    {
+        if (isMenuOpen())
+        {
+            return;
+        }
+
+        createRecipieListUI();
+        OpenCraftingMenu(); //COMMENT THIS OUT TO TEST OTHER STUFF FOR NOW
     }
 
     // Update is called once per frame
