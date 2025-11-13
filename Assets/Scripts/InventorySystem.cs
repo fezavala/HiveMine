@@ -44,22 +44,20 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-
+        gameInput.OnScrollAction += GameInput_OnScrollAction;  // Scroll input used for changing weapons
     }
 
-    private void TestWeaponSwap()
+    // Scroll Input now set to weapon swap
+    private void GameInput_OnScrollAction(object sender, GameInput.OnScrollActionEventArgs e)
     {
-        bool swapWeapon = Input.GetKeyDown(KeyCode.F);
-        if (swapWeapon)
+        if (weaponSOInventory.Count > 0)
         {
-            if (weaponSOInventory.Count > 0)
+            weaponSOIndex = (weaponSOIndex + e.scrollSign) % weaponSOInventory.Count;
+            if (weaponSOIndex < 0) weaponSOIndex = weaponSOInventory.Count - 1;
+            OnEquipableSwapped?.Invoke(this, new OnEquipableSwappedArgs
             {
-                weaponSOIndex = (weaponSOIndex + 1) % weaponSOInventory.Count;
-                OnEquipableSwapped?.Invoke(this, new OnEquipableSwappedArgs
-                {
-                    equipableSO = weaponSOInventory[weaponSOIndex]
-                });
-            }
+                equipableSO = weaponSOInventory[weaponSOIndex]
+            });
         }
     }
 
@@ -168,7 +166,5 @@ public class Inventory : MonoBehaviour
         oreCounters[1].text = oreDatas[1].AmountInInventory.ToString();
         oreCounters[2].text = oreDatas[2].AmountInInventory.ToString();
         oreCounters[3].text = oreDatas[3].AmountInInventory.ToString();
-
-        TestWeaponSwap();
     }
 }
