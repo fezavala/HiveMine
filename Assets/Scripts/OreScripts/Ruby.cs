@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class Ruby : OreBlock
 {
-    [SerializeField] private string type = "Ruby";
-
-    public string getType()
+    private void Awake()
     {
-        return type;
+        oreType = OreType.Ruby;
     }
-
 }

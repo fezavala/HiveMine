@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 156497059356844048}
   - component: {fileID: 2741961864656908309}
   - component: {fileID: 1122853704997558204}
-  - component: {fileID: 7316877249356584521}
+  - component: {fileID: -3864070801011511163}
   m_Layer: 5
   m_Name: Recipe Slot
   m_TagString: Untagged
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7316877249356584521
+--- !u!114 &-3864070801011511163
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -582,6 +582,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 156497059356844048}
     m_Modifications:
+    - target: {fileID: 807671211587133601, guid: 2ed47b4190c28824893ecb35f0ebfa8f,
+        type: 3}
+      propertyPath: m_text
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4280022020259672351, guid: 2ed47b4190c28824893ecb35f0ebfa8f,
         type: 3}
       propertyPath: m_Pivot.x

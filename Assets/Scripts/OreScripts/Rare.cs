@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class Rare : OreBlock
 {
-    [SerializeField] private string type = "Rare";
-
-    public string getType()
+    private void Awake()
     {
-        return type;
+        oreType = OreType.Rare;
     }
-
 }

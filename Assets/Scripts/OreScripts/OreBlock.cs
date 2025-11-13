@@ -2,12 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum OreType
+{
+    Iron,
+    Gold,
+    Ruby,
+    Rare
+}
+
 public class OreBlock : MonoBehaviour
 {
-    public OreData oreData;
+    //public OreData oreData;
     private Inventory inventory;
+    [SerializeField] protected OreType oreType;
     [SerializeField] private int oreAmount;
-    //[SerializeField] private bool isBroken = false;
 
     public int getOreAmount()
     {
@@ -18,10 +26,14 @@ public class OreBlock : MonoBehaviour
     {
         oreAmount = amount;
     }
+    public OreType GetOreType()
+    {
+        return oreType;
+    }
 
     public void setBroken()
-    {
-        inventory.AddOre(oreAmount, oreData.oreType); 
+    { 
+        inventory.AddOre(oreAmount, oreType);
         //Debug.Log("IM BEING DESTROYED");
 
     }
