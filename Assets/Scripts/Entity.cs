@@ -29,8 +29,15 @@ public class Entity : MonoBehaviour
         Inventory.Instance.OnEquipableSwapped += Inventory_OnEquipableSwapped;
 
         gameInput.OnInteractAction += GameInput_OnInteractAction;
+        gameInput.OnAttackAction += GameInput_OnAttackAction;
 
         tempDamageRange = (damagePointTransform.position - transform.position).magnitude;
+    }
+
+    // Left Mouse Click, or the attack action, calls the deal damage function
+    private void GameInput_OnAttackAction(object sender, EventArgs e)
+    {
+        TestDealDamage();
     }
 
     // The interact action will for now be linked to interacting with the crafting table
@@ -54,7 +61,6 @@ public class Entity : MonoBehaviour
         HandleMovement();
         //UpdateDamagePointVisual();
         TestDamageTaken();
-        TestDealDamage();
     }
 
     // This may be temporary and replaced with a more complex interaction system, with interaction locks when the players state should prevent interactions
@@ -108,20 +114,15 @@ public class Entity : MonoBehaviour
         return mouseDirection;
     }
 
-
     private void TestDealDamage()
     {
-        bool dealDamage = Input.GetKeyDown(KeyCode.Mouse0);
-        if (dealDamage)
+        if (attackComponent == null)
         {
-            if (attackComponent == null)
-            {
-                Debug.Log(gameObject.name + " has no AttackComponent, cannot perform attack");
-                return;
-            }
-            Vector3 damageDirection = GetMouseDirection();
-            attackComponent.PerformAttack(damageDirection);
+            Debug.Log(gameObject.name + " has no AttackComponent, cannot perform attack.");
+            return;
         }
+        Vector3 damageDirection = GetMouseDirection();
+        attackComponent.PerformAttack(damageDirection);
     }
 
     // Temporary Method testing if player dies
