@@ -58,10 +58,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4014802906771324198, guid: 32404991280a0f344bd410e1625aaf48,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014802906771324198, guid: 32404991280a0f344bd410e1625aaf48,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4b545d3e152544f449488f55218b4966, type: 2}
+    - target: {fileID: 5934163216782333927, guid: 32404991280a0f344bd410e1625aaf48,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5934163216782333927, guid: 32404991280a0f344bd410e1625aaf48,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7241746232401380971, guid: 32404991280a0f344bd410e1625aaf48,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8435793103191363184, guid: 32404991280a0f344bd410e1625aaf48,
         type: 3}
       propertyPath: m_Name
-      value: _IndestructibleWall
+      value: StoneWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 8435793103191363184, guid: 32404991280a0f344bd410e1625aaf48,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

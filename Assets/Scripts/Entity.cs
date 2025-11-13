@@ -51,8 +51,8 @@ public class Entity : MonoBehaviour
 
     private void Update()
     {
-        TestHandleMovement();
-        UpdateDamagePointVisual();
+        HandleMovement();
+        //UpdateDamagePointVisual();
         TestDamageTaken();
         TestDealDamage();
     }
@@ -74,7 +74,7 @@ public class Entity : MonoBehaviour
                     break;
                 }
             }
-            }
+        }
     }
 
     private void HealthComponent_OnZeroHPLeft(object sender, EventArgs e)
@@ -86,6 +86,13 @@ public class Entity : MonoBehaviour
     // Note: temporary for now
     private void UpdateDamagePointVisual()
     {
+        damagePointTransform.position = transform.position + GetMouseDirection() * tempDamageRange;
+    }
+
+    private Vector3 GetMouseDirection()
+    {
+        Vector3 mouseDirection = Vector3.zero;
+        
         Vector2 mousePosition = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         RaycastHit hit;
@@ -94,11 +101,11 @@ public class Entity : MonoBehaviour
         {
             Vector3 mouseWorldPosition = hit.point;
             mouseWorldPosition.y = 0f;
-            Vector3 mouseDirection = mouseWorldPosition - transform.position;
+            mouseDirection = mouseWorldPosition - transform.position;
             mouseDirection = mouseDirection.normalized;
-
-            damagePointTransform.position = transform.position + mouseDirection * tempDamageRange;
         }
+
+        return mouseDirection;
     }
 
 
@@ -112,7 +119,7 @@ public class Entity : MonoBehaviour
                 Debug.Log(gameObject.name + " has no AttackComponent, cannot perform attack");
                 return;
             }
-            Vector3 damageDirection = (damagePointTransform.position - transform.position).normalized;
+            Vector3 damageDirection = GetMouseDirection();
             attackComponent.PerformAttack(damageDirection);
         }
     }
@@ -128,7 +135,7 @@ public class Entity : MonoBehaviour
         }
     }
 
-    private void TestHandleMovement()
+    private void HandleMovement()
     {
         // Input Vector returned from GameInput Class which uses Unity's new input system
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
