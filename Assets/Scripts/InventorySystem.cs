@@ -14,20 +14,23 @@ public class Inventory : MonoBehaviour
     public static Inventory Instance { get; private set; }
 
     [SerializeField] private GameInput gameInput;
-
     [SerializeField] private GameObject inventoryScreenUI;
+    public List<OreType> oreTypeList = new List<OreType>
+{
+    OreType.Iron,
+    OreType.Gold,
+    OreType.Ruby,
+    OreType.Rare
+};
 
     [Header("OreCounters")]
     [SerializeField] private TextMeshProUGUI[] oreCounters;
-    //private Dictionary<OreData, int> ores = new Dictionary<OreData, int>();
 
     [Header("OreInventorys")]
-    public List<OreData> oreDatas = new List<OreData>();
-    //public OreData IronOre;
-    //public OreData GoldOre;
-    //public OreData RubyOre;
-    //public OreData RareOre;
+    public List<int> oreCounts = new List<int>();
 
+    [Header("CraftingRecipies")]
+    public List<CraftingRecipe> recipes = new List<CraftingRecipe>();
 
     // Weapon inventory fields:
     [Header("WeaponInventory")]
@@ -61,7 +64,6 @@ public class Inventory : MonoBehaviour
         }
     }
 
-
     private void Awake()
     {
         if (Instance !=null)
@@ -71,59 +73,53 @@ public class Inventory : MonoBehaviour
         Instance = this;
     }
 
-    public void AddOre(int amount, string type)
+    public void AddOre(int amount, OreType type)
     {
-        for (int i = 0; i< oreDatas.Count; i++) { 
-            if (type == oreDatas[i].oreType)
-            {
-                oreDatas[i].AmountInInventory += amount;
-            } else if (type == oreDatas[i].oreType)
-            {
-                oreDatas[i].AmountInInventory += amount;
-            } else if (type == oreDatas[i].oreType)
-            {
-                oreDatas[i].AmountInInventory += amount;
-            } else if (type == oreDatas[i].oreType)
-            {
-                oreDatas[i].AmountInInventory += amount;
-            }
-        }
-       /*
-        if (ores.ContainsKey(ore))
+        switch (type)
         {
-            ores[ore]++;
-        }
-        else
-        {
-            ores[ore] = 1;
-        }
-        Debug.Log($"Added {ore.name} to inv. Count: {ores[ore]}");
-       */
-    }
-
-    public void RemoveOre(int amount, string type)
-    {
-        for (int i = 0; i < oreDatas.Count; i++)
-        {
-            if (type == "Iron")
-            {
-                oreDatas[i].AmountInInventory -= amount;
-            }
-            else if (type == "Gold")
-            {
-                oreDatas[i].AmountInInventory -= amount;
-            }
-            else if (type == "Ruby")
-            {
-                oreDatas[i].AmountInInventory -= amount;
-            }
-            else if (type == "Rare")
-            {
-                oreDatas[i].AmountInInventory -= amount;
-            }
+            case OreType.Iron:
+                oreCounts[0] += amount;
+                break;
+            case OreType.Gold:
+                oreCounts[1] += amount;
+                break;
+            case OreType.Ruby:
+                oreCounts[2] += amount;
+                break;
+            case OreType.Rare:
+                oreCounts[3] += amount;
+                break;
         }
     }
 
+    public void RemoveOre(int amount, OreType type)
+    {
+        switch (type)
+        {
+            case OreType.Iron:
+                oreCounts[0] -= amount;
+                break;
+            case OreType.Gold:
+                oreCounts[1] -= amount;
+                break;
+            case OreType.Ruby:
+                oreCounts[2] -= amount;
+                break;
+            case OreType.Rare:
+                oreCounts[3] -= amount;
+                break;
+        }
+    }
+
+    public void AddRecipie(CraftingRecipe recipe)
+    {
+        recipes.Add(recipe);
+    }
+
+    public void RemoveRecipie(CraftingRecipe recipe)
+    {
+        recipes.Remove(recipe);
+    }
 
     public void addWeapon(WeaponSO weaponSO)
     {
@@ -162,9 +158,9 @@ public class Inventory : MonoBehaviour
 
         //Update counter on UI
         //TODO: This would benefit from using an event to update the visuals when an ore is collected, instead of every frame
-        oreCounters[0].text = oreDatas[0].AmountInInventory.ToString();
-        oreCounters[1].text = oreDatas[1].AmountInInventory.ToString();
-        oreCounters[2].text = oreDatas[2].AmountInInventory.ToString();
-        oreCounters[3].text = oreDatas[3].AmountInInventory.ToString();
+        oreCounters[0].text = oreCounts[0].ToString();
+        oreCounters[1].text = oreCounts[1].ToString(); 
+        oreCounters[2].text = oreCounts[2].ToString(); 
+        oreCounters[3].text = oreCounts[3].ToString();
     }
 }

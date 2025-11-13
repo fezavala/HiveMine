@@ -7,19 +7,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "OreGenerationScript", menuName = "ScriptableObjects/OreGenerationScript")]
 public class OreValueGeneration : ScriptableObject
 {
-    //public String oreType;
     public int totalAmount;
-    //public GameObject[] oreObjects;
 
     public void GenerateOreValues(OreBlock [] oreObjects)
     {
-        //GameObject[] oreObjects = GameObject.FindGameObjectsWithTag(oreType);
-        //OreBlock[] oreObjects = oreType; //might need this one
-        //if (oreObjects.Length == 0)
-        //{
-            //Debug.LogWarning("No objects with " + oreType + " tag.");
-        //}
-
         int[] oreValues = WeightedRandomGen(totalAmount, oreObjects.Length);
         for (int i = 0; i < oreObjects.Length; i++)
         {

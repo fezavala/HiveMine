@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class Iron : OreBlock
 {
-    [SerializeField] private string type = "Iron";
-
-    public string getType()
+    private void Awake()
     {
-        return type;
+        oreType = OreType.Iron;
     }
 }
