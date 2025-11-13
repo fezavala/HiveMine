@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
 // This script uses the new Unity Input System for obtaining key inputs.
@@ -10,6 +11,7 @@ public class GameInput : MonoBehaviour
     private PlayerInputActions playerInputActions;
 
     public event EventHandler OnInteractAction;
+    public event EventHandler OnAttackAction;
     public event EventHandler<OnScrollActionEventArgs> OnScrollAction;
 
     public class OnScrollActionEventArgs : EventArgs
@@ -23,7 +25,13 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Enable();
 
         playerInputActions.Player.Interact.performed += Interact_performed;
+        playerInputActions.Player.Attack.performed += Attack_performed;
         playerInputActions.Player.Scroll.performed += Scroll_performed;
+    }
+
+    private void Attack_performed(InputAction.CallbackContext obj)
+    {
+        OnAttackAction?.Invoke(this, EventArgs.Empty);
     }
 
     // Scrolling Input

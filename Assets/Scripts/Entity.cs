@@ -29,8 +29,15 @@ public class Entity : MonoBehaviour
         Inventory.Instance.OnEquipableSwapped += Inventory_OnEquipableSwapped;
 
         gameInput.OnInteractAction += GameInput_OnInteractAction;
+        gameInput.OnAttackAction += GameInput_OnAttackAction;
 
         tempDamageRange = (damagePointTransform.position - transform.position).magnitude;
+    }
+
+    // Left Mouse Click, or the attack action, calls the deal damage function
+    private void GameInput_OnAttackAction(object sender, EventArgs e)
+    {
+        TestDealDamage();
     }
 
     // The interact action will for now be linked to interacting with the crafting table
@@ -51,10 +58,9 @@ public class Entity : MonoBehaviour
 
     private void Update()
     {
-        TestHandleMovement();
-        UpdateDamagePointVisual();
+        HandleMovement();
+        //UpdateDamagePointVisual();
         TestDamageTaken();
-        TestDealDamage();
     }
 
     // This may be temporary and replaced with a more complex interaction system, with interaction locks when the players state should prevent interactions
@@ -74,7 +80,7 @@ public class Entity : MonoBehaviour
                     break;
                 }
             }
-            }
+        }
     }
 
     private void HealthComponent_OnZeroHPLeft(object sender, EventArgs e)
@@ -86,6 +92,13 @@ public class Entity : MonoBehaviour
     // Note: temporary for now
     private void UpdateDamagePointVisual()
     {
+        damagePointTransform.position = transform.position + GetMouseDirection() * tempDamageRange;
+    }
+
+    private Vector3 GetMouseDirection()
+    {
+        Vector3 mouseDirection = Vector3.zero;
+        
         Vector2 mousePosition = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         RaycastHit hit;
@@ -94,27 +107,22 @@ public class Entity : MonoBehaviour
         {
             Vector3 mouseWorldPosition = hit.point;
             mouseWorldPosition.y = 0f;
-            Vector3 mouseDirection = mouseWorldPosition - transform.position;
+            mouseDirection = mouseWorldPosition - transform.position;
             mouseDirection = mouseDirection.normalized;
-
-            damagePointTransform.position = transform.position + mouseDirection * tempDamageRange;
         }
-    }
 
+        return mouseDirection;
+    }
 
     private void TestDealDamage()
     {
-        bool dealDamage = Input.GetKeyDown(KeyCode.Mouse0);
-        if (dealDamage)
+        if (attackComponent == null)
         {
-            if (attackComponent == null)
-            {
-                Debug.Log(gameObject.name + " has no AttackComponent, cannot perform attack");
-                return;
-            }
-            Vector3 damageDirection = (damagePointTransform.position - transform.position).normalized;
-            attackComponent.PerformAttack(damageDirection);
+            Debug.Log(gameObject.name + " has no AttackComponent, cannot perform attack.");
+            return;
         }
+        Vector3 damageDirection = GetMouseDirection();
+        attackComponent.PerformAttack(damageDirection);
     }
 
     // Temporary Method testing if player dies
@@ -128,7 +136,7 @@ public class Entity : MonoBehaviour
         }
     }
 
-    private void TestHandleMovement()
+    private void HandleMovement()
     {
         // Input Vector returned from GameInput Class which uses Unity's new input system
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
