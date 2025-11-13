@@ -625,13 +625,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a32e6d198b4b56448477fcfe7a19127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  craftingMenuUI: {fileID: 4048155667867846084, guid: 4f8181ba83106734681303f920469e82,
-    type: 3}
-  recipeSlotUI: {fileID: 1366667715899562093, guid: e62fb435d2ed5a3418099e5c0e00b117,
-    type: 3}
-  craftingRecipes:
-  - {fileID: 11400000, guid: 38e5e8bd27359ed4fa577cd9f6000e1c, type: 2}
-  - {fileID: 11400000, guid: 4a0b433e66c3e2f4d874d211419c4431, type: 2}
+  craftingUI: {fileID: 0}
+  avalableRecipes:
+  - {fileID: 0}
   inventory: {fileID: 0}
 --- !u!4 &4955194092399152581 stripped
 Transform:

@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4337a2a7516479499600204f21c4296, type: 3}
-  m_Name: HammerRecipe
+  m_Name: GoldShovelRecipe
   m_EditorClassIdentifier: 
-  ItemName: Hammer
-  OreTypes: 0000000001000000
-  AmountNeeded: 1400000005000000
+  ItemName: Gold Shovel
+  itemIcon: {fileID: 0}
+  OreTypesNeeded: 0000000001000000
+  AmountNeeded: 0300000005000000
+  WeaponSO: {fileID: 11400000, guid: 4efbf84544fd73a44abfd0dd660fa20d, type: 2}
