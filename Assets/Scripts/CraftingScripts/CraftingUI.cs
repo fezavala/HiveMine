@@ -18,6 +18,7 @@ public class CraftingUI : MonoBehaviour
     public void ShowCraftingMenu(CraftingRecipe[] recipes)
     {
         craftingMenuUI.SetActive(true);
+        Time.timeScale = 0f;
         ClearOldSlots();
 
         foreach (CraftingRecipe recipe in recipes)
@@ -35,12 +36,6 @@ public class CraftingUI : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-    }
-
-    public void OpenCraftingMenu()
-    {
-        craftingMenuUI.SetActive(true);
-        Time.timeScale = 0f;
     }
 
     public void CloseCraftingMenu()

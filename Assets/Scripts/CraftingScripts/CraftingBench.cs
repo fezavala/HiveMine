@@ -10,12 +10,13 @@ public class CraftingBench : MonoBehaviour, IUsable
 {
     public static CraftingBench Instance { get; private set; }
     [SerializeField] private CraftingUI craftingUI;
-    //[SerializeField] private GameObject recipeSlotUI;
     [SerializeField] private CraftingRecipe[] avalableRecipes;
-    //[SerializeField] private Inventory inventory;
+    [SerializeField] private Inventory inventory;
 
-    //[Header("RecipieUI")]
-    //[SerializeField] private GameObject craftingMenuUI;
+    private void Start()
+    {
+        craftingUI = FindObjectOfType<CraftingUI>();
+    }
 
     private void Awake()
     {
@@ -29,155 +30,18 @@ public class CraftingBench : MonoBehaviour, IUsable
         }
     }
 
-
-
-    //check if player had a crafting recipe
-    /*
-    public bool HasRecipe(CraftingRecipe recipe)
-    {
-        bool check = false;
-        for (int i =0; i< avalableRecipes.Length; i++)
-        {
-            if (avalableRecipes[i] == recipe)
-            {
-                check = true;
-            }
-        }
-        return check;
-    }
-    */
-
-    //check if player has enough of one ore type in inventory
-    /*
-    public bool hasOre(string oreType, int minAmount)
-    {
-        bool check = false;
-        
-        for (int i =0; i<inventory.oreCounts.Count; i++)
-        {
-            if (inventory.oreCounts[i] >= minAmount)
-            {
-                check = true;
-                //Debug.Log("Inventory has enough "  + inventory.oreCounts[i].oreType + ": "+ inventory.oreCounts[i].oreType);
-            }
-        }
-        return check;
-    }
-    */
-    //add item to player incentory and remove materials from inventory
-    /*
-    public void craftRecipe(CraftingRecipe recipe)
-    {
-        if (!hasRecipe(recipe))
-        {
-            Debug.Log("Player does not have crafting recipe for " + recipe.ItemName);
-            return;
-        }
-        bool allOresAvailable = true;
-
-        for (int i =0; i< recipe.OreTypes.Length; i++)
-        {
-            OreList requiredOre = recipe.OreTypes[i];
-            int requiredAmount = recipe.AmountNeeded[i];
-
-            if (!hasOre(requiredOre.ToString(), requiredAmount))
-            {
-                allOresAvailable = false;
-                Debug.Log("Player does not have enough ore " + recipe.AmountNeeded[i]);
-            }
-        }
-
-        if (!allOresAvailable)
-        {
-            return;
-        }
-
-        //add item to inventory
-        //inventory.addWeapon(recipe.ItemName);
-        Debug.Log("weapon has been added to inventory");
-        for (int i =0; i<recipe.OreTypes.Length; i++)
-        {
-            OreList reqiredOre = recipe.OreTypes[i];
-            int requiredAmount = recipe.AmountNeeded[i];
-
-            inventory.RemoveOre(requiredAmount, reqiredOre.ToString());
-        }
-        Debug.Log("Crafted: " + recipe.ItemName);
-        /*
-        bool checkRecipe = false;
-        bool checkAllOres = false;
-        if (hasRecipe(recipe) == true) //if the player has this recipe
-        {
-            checkRecipe = true;
-            for (int i =0; i< inventory.oreDatas.Count; i++) //go through each ore type in the inventory
-            {
-                if (inventory.oreDatas[i].oreType == recipe.OreTypes[i].ToString()) //if the recipe calls for this ore
-                {
-                    if(hasOre(recipe.OreTypes[i].ToString(), recipe.AmountNeeded[i])) //check if there is enough of it
-                    {
-                        //as long as all ores needed in recipe are avalable, item is craftable
-                    }
-                }
-            }
-            if (checkRecipe && checkAllOres)
-            {
-                //inventory.addWeapon(recipe.ItemName); TODO: need to make sure names are final for this to work
-
-                //remove ore from inventory
-                inventory.RemoveOre(recipe.AmountNeeded[i]); //how to do this for every item? already out of for loop
-
-            }
-        }
-        */
-    //}
-    /*
-    public void createRecipieListUI()
-    {
-        if (craftingRecipes.Length == 0) //if player has no recipes
-        {
-            GameObject textBox = new GameObject("NoRecipesText");
-            textBox.transform.SetParent(craftingMenuUI.transform, false);
-
-            TMP_Text text = textBox.AddComponent<TextMeshProUGUI>();
-            text.text = "No crafting recipes found";
-            text.fontSize = 32;
-            text.alignment = TextAlignmentOptions.Center;
-        }
-        else
-        {
-            Debug.Log("Player has recipies");
-            List<GameObject> rSlots = new List<GameObject>();
-            //Update UI
-            for (int i = 0; i < craftingRecipes.Length; i++)
-            {
-                //create a new slot in the Menu
-                //rSlots.Add(recipeSlotUI);
-                
-                GameObject slotObject = Instantiate(recipeSlotUI, craftingMenuUI.transform);
-                RecipeSlot slot = slotObject.GetComponent<RecipeSlot>();
-                slot.SetReceipe(craftingRecipes[i]);
-                
-            }
-        }
-    }
-    */
     public void Interact()
     {
-        craftingUI.OpenCraftingMenu();
+        GetAvalableRecipies();
+        craftingUI.ShowCraftingMenu(avalableRecipes);
     }
 
-     //Update is called once per frame
-    /*
-     void Update()
+    public void GetAvalableRecipies()
     {
-        bool click = Input.GetKeyDown(KeyCode.Mouse0);
-        if (click && !isMenuOpen())
+        for (int i =0; i< inventory.recipes.Count; i++)
         {
-            //createRecipieListUI();
-            OpenCraftingMenu(); //COMMENT THIS OUT TO TEST OTHER STUFF FOR NOW
+            avalableRecipes[i] = inventory.recipes[i];
         }
-
-
     }
-    */
+
 }

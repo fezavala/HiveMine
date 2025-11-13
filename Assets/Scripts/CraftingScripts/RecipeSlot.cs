@@ -4,17 +4,18 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class RecipeSlot : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Image recipeIcon;
+    //[SerializeField] private Image recipeIcon;
     [SerializeField] private TextMeshProUGUI recipeName;
     [SerializeField] private List<GameObject> materialSlotUI;
     [SerializeField] private int[] neededAmout;
     [SerializeField] private GameObject materialSlotPrefab;
-    [SerializeField] private Button craftButton;
+    private UnityEngine.UI.Button craftButton;
     private Action onCraftClicked;
 
     public void SetReceipe(CraftingRecipe recipe)
@@ -23,11 +24,12 @@ public class RecipeSlot : MonoBehaviour
         recipeName.text = recipe.ItemName;
         
         //set icon
+        /*
         if (recipe.itemIcon != null) 
             recipeIcon.sprite = recipe.itemIcon;
         else
             recipeIcon.sprite = null;
-        
+        */
         //set ore and amount needed
         for (int i = 0; i< recipe.OreTypesNeeded.Length; i++)
         {
@@ -40,8 +42,25 @@ public class RecipeSlot : MonoBehaviour
 
     public void SetCraftAction(Action craftAction)
     {
-        //craftButton.onClick.RemoveAllListeners();
+        // Find the Button automatically only once
+        if (craftButton == null)
+        {
+            craftButton = GetComponentInChildren<UnityEngine.UI.Button>();
+            if (craftButton == null)
+            {
+                Debug.LogError("No Button found in RecipeSlot prefab!");
+                return;
+            }
+        }
+
+        // Refresh
+        craftButton.onClick.RemoveAllListeners();
+
         onCraftClicked = craftAction;
-        //craftButton.onClick.AddListener(() => onCraftClicked?.Invoke());
+
+        craftButton.onClick.AddListener(() =>
+        {
+            onCraftClicked?.Invoke();
+        });
     }
 }
