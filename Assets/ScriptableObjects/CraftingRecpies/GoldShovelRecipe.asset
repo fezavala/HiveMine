@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GoldShovelRecipe
   m_EditorClassIdentifier: 
   ItemName: Gold Shovel
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: ff6d7f8f6992f2040b936c5fecea9a7d, type: 3}
   OreTypesNeeded: 0000000001000000
   AmountNeeded: 0300000005000000
   WeaponSO: {fileID: 11400000, guid: 4efbf84544fd73a44abfd0dd660fa20d, type: 2}

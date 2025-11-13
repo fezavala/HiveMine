@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IronPIcaxeRecipe
   m_EditorClassIdentifier: 
   ItemName: Iron Picaxe
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 33f54ae293867484cbeb05f9e3252236, type: 3}
   OreTypesNeeded: 00000000
   AmountNeeded: 0a000000
   WeaponSO: {fileID: 11400000, guid: 126c94a07c2143142b9cbbc1c08ec785, type: 2}
