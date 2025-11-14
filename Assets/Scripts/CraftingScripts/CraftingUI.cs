@@ -15,7 +15,7 @@ public class CraftingUI : MonoBehaviour
         craftingSystem = FindObjectOfType<CraftingSystem>();   
     }
 
-    public void ShowCraftingMenu(CraftingRecipe[] recipes)
+    public void ShowCraftingMenu(List<CraftingRecipe> recipes)
     {
         craftingMenuUI.SetActive(true);
         Time.timeScale = 0f;

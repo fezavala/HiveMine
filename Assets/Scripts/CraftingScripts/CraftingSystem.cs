@@ -9,35 +9,35 @@ public class CraftingSystem : MonoBehaviour
 
     public bool HasOresNeeded(CraftingRecipe recipe)
     {
-        bool[] satisfied = new bool[recipe.OreTypesNeeded.Length];
+        // Link type and amount
+        Dictionary<OreType, int> totals = new Dictionary<OreType, int>();
 
-        for (int i=0; i< inventory.oreCounts.Count; i++) //go through every ore in inventory
+        for (int i = 0; i < inventory.oreCounts.Count; i++)
         {
-            OreType currentOre = inventory.oreTypeList[i];
-            int currentAmount = inventory.oreCounts[i];
+            OreType type = inventory.oreTypeList[i];
+            int amount = inventory.oreCounts[i];
 
-            for (int j=0; j < recipe.OreTypesNeeded.Length; j++) //go through every ore needed in recipe
-            {
-                if (!satisfied[j] && recipe.OreTypesNeeded[j] == currentOre)
-                {
-                    if (currentAmount >= recipe.AmountNeeded[j])
-                    {
-                        satisfied[j] = true; // requirement met
-                        break; // stop checking this inventory ore
-                    }
-                }
-            }
+            if (!totals.ContainsKey(type))
+                totals[type] = 0;
 
-            // Check if all recipe ores are satisfied
-            for (int j = 0; j < satisfied.Length; j++)
+            totals[type] += amount;
+        }
+
+        // Check each recipe requirement
+        for (int i = 0; i < recipe.OreTypesNeeded.Length; i++)
+        {
+            OreType requiredType = recipe.OreTypesNeeded[i];
+            int requiredAmount = recipe.AmountNeeded[i];
+
+            totals.TryGetValue(requiredType, out int availableAmount);
+
+            if (availableAmount < requiredAmount)
             {
-                if (!satisfied[j])
-                {
-                    Debug.Log("Missing or insufficient" + recipe.OreTypesNeeded[j] + ", need " + recipe.AmountNeeded[j]);
-                    return false;
-                }
+                Debug.Log("Missing or insufficient" + requiredType + ". Need " + requiredAmount + ", have " + availableAmount);
+                return false;
             }
         }
+
         return true;
     }
 
