@@ -18,6 +18,6 @@ MonoBehaviour:
   weaponDamage: 2
   toolDamage: 5
   weaponPenetration: 1
-  weaponAttackRange: 1.5
+  weaponAttackRange: 1.8
   weaponAttackSpeed: 5
   weaponAttackCooldown: 0
