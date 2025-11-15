@@ -32,8 +32,7 @@ public class CraftingBench : MonoBehaviour, IUsable
 
     public void Interact()
     {
-        GetAvalableRecipies();
-        craftingUI.ShowCraftingMenu(avalableRecipes);
+        craftingUI.ShowCraftingMenu(inventory.recipes);
     }
 
     public void GetAvalableRecipies()
