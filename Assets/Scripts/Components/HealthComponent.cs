@@ -68,7 +68,9 @@ public class HealthComponent : MonoBehaviour
             return;
         }
 
-        int effectiveChange = toolDamage ? Mathf.Max(MIN_DAMAGE, damageAmount - defense) : Mathf.Max(0, damageAmount - defense);
+        int previousHP = currentHP;
+
+        int effectiveChange = toolDamage ? Mathf.Max(0, damageAmount - defense) : Mathf.Max(MIN_DAMAGE, damageAmount - defense);
         currentHP = Mathf.Max(MIN_HP, currentHP - effectiveChange);
 
         if (currentHP <= 0)
@@ -78,7 +80,7 @@ public class HealthComponent : MonoBehaviour
             return;
         }
 
-        OnHPChanged?.Invoke(this, new OnHPChangedEventArgs
+        if (previousHP > currentHP) OnHPChanged?.Invoke(this, new OnHPChangedEventArgs
         {
             hitPoints = currentHP
         });

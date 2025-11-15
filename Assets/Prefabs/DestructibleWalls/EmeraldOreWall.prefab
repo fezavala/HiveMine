@@ -68,6 +68,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 9d1007d64380f1c498bec48662df6962, type: 2}
+    - target: {fileID: 6711853165049848543, guid: 769de191aa08b404bb18f0b5409a4c0e,
+        type: 3}
+      propertyPath: maxHP
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711853165049848543, guid: 769de191aa08b404bb18f0b5409a4c0e,
+        type: 3}
+      propertyPath: defense
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8435793103191363184, guid: 769de191aa08b404bb18f0b5409a4c0e,
         type: 3}
       propertyPath: m_Name

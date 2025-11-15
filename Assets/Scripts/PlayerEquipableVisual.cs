@@ -4,24 +4,30 @@ using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// Visualizes equipped weapons and tools for the player
+// Visualizes equipped weapons and tools for the player and plays their appropriate animations
 // NOTE: This may need to be made into a component for enemies
-[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(SpriteRenderer)), RequireComponent(typeof(Animator))]
 public class PlayerEquipableVisual : MonoBehaviour
 {
     [SerializeField] private Entity weaponHolder;
+    [SerializeField] private AttackComponent weaponHolderAttackComponent;
     private WeaponSO equipableSO;
     private SpriteRenderer spriteRenderer;
+    private Animator weaponAnimator;
 
-    private float visualDistance;
-    private float yAxisValue;
+    private const string ANIMATION_SPEED = "SpeedMultiplier";
 
-    private const float X_ROTATION = 90f;
-    private const float Z_ROTATION = 0f;
+    // VERY TEMPORARY! To be changed to an SO type
+    private readonly Dictionary<AttackComponent.WeaponType, string> WEAPON_TYPE_TO_ANIMATION_NAME = new() 
+    {
+        {AttackComponent.WeaponType.STRAIGHT_ATTACK, "StartStabAnimation" },
+        {AttackComponent.WeaponType.SWING_ATTACK, "StartStabAnimation"},
+    };
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        weaponAnimator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         // Set sprite to WeaponSO Sprite if it exists
         if (equipableSO != null)
@@ -33,12 +39,15 @@ public class PlayerEquipableVisual : MonoBehaviour
             spriteRenderer.sprite = null;
         }
 
-        // Setup for position of tool
-        Vector3 relativeDistance = new Vector3(transform.position.x, 0f, transform.position.z);
-        visualDistance = (relativeDistance - weaponHolder.transform.position).magnitude;
-        yAxisValue = transform.position.y;
-
         Inventory.Instance.OnEquipableSwapped += Inventory_OnEquipableSwapped;
+        weaponHolderAttackComponent.OnAttackStart += WeaponHolderAttackComponent_OnAttackStart;
+
+    }
+
+    private void WeaponHolderAttackComponent_OnAttackStart(object sender, AttackComponent.OnAttackStartEventArgs e)
+    {
+        weaponAnimator.SetFloat(ANIMATION_SPEED, e.attackSpeed);
+        weaponAnimator.SetTrigger(WEAPON_TYPE_TO_ANIMATION_NAME[e.attackType]);
     }
 
     private void Inventory_OnEquipableSwapped(object sender, Inventory.OnEquipableSwappedArgs e)

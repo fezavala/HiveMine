@@ -15,13 +15,14 @@ public class Inventory : MonoBehaviour
 
     [SerializeField] private GameInput gameInput;
     [SerializeField] private GameObject inventoryScreenUI;
+    [SerializeField] private AttackComponent playerAttackComponent;
     public List<OreType> oreTypeList = new List<OreType>
-{
-    OreType.Iron,
-    OreType.Gold,
-    OreType.Ruby,
-    OreType.Rare
-};
+    {
+        OreType.Iron,
+        OreType.Gold,
+        OreType.Ruby,
+        OreType.Rare
+    };
 
     [Header("OreCounters")]
     [SerializeField] private TextMeshProUGUI[] oreCounters;
@@ -53,9 +54,20 @@ public class Inventory : MonoBehaviour
     // Scroll Input now set to weapon swap
     private void GameInput_OnScrollAction(object sender, GameInput.OnScrollActionEventArgs e)
     {
-        if (weaponSOInventory.Count > 0)
+        PerformWeaponSwap(e.scrollSign);
+    }
+
+    private void PerformWeaponSwap(int scrollSign)
+    {
+        if (playerAttackComponent == null)
         {
-            weaponSOIndex = (weaponSOIndex + e.scrollSign) % weaponSOInventory.Count;
+            Debug.LogError("No AttackComponent attached to inventory, unable to swap weapons!");
+            return;
+        }
+
+        if (weaponSOInventory.Count > 0 && !playerAttackComponent.IsAttacking())
+        {
+            weaponSOIndex = (weaponSOIndex + scrollSign) % weaponSOInventory.Count;
             if (weaponSOIndex < 0) weaponSOIndex = weaponSOInventory.Count - 1;
             OnEquipableSwapped?.Invoke(this, new OnEquipableSwappedArgs
             {
@@ -66,7 +78,7 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance !=null)
+        if (Instance != null)
         {
             Debug.LogError("There is more than one Inventory instance!");
         }
@@ -140,19 +152,13 @@ public class Inventory : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // Temporary weapon swap at start of game to show equipable object immediately
         if (frameOneWeaponSwap)
         {
-            // If the weapon inventory has tools, let the player equip it
-            if (weaponSOInventory.Count > 0)
-            {
-                OnEquipableSwapped?.Invoke(this, new OnEquipableSwappedArgs
-                {
-                    equipableSO = weaponSOInventory[weaponSOIndex]
-                });
-            }
+            int weaponSwapSign = 0;
+            PerformWeaponSwap(weaponSwapSign);
             frameOneWeaponSwap = false;
         }
 

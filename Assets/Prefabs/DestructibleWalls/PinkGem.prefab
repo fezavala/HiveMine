@@ -68,6 +68,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8de29ac5cc662e04b8a34eea4cfcc00e, type: 2}
+    - target: {fileID: 6711853165049848543, guid: 769de191aa08b404bb18f0b5409a4c0e,
+        type: 3}
+      propertyPath: maxHP
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711853165049848543, guid: 769de191aa08b404bb18f0b5409a4c0e,
+        type: 3}
+      propertyPath: defense
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8435793103191363184, guid: 769de191aa08b404bb18f0b5409a4c0e,
         type: 3}
       propertyPath: m_Name
@@ -100,6 +110,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e5c357f182c12f449e0b7278513f522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oreData: {fileID: 11400000, guid: d36e2433960143b49ada35c62caf4d23, type: 2}
+  oreType: 3
   oreAmount: 0
-  type: Rare

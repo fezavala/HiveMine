@@ -68,6 +68,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b49db59fd51be3b428a5f6561b2f0fb4, type: 2}
+    - target: {fileID: 6711853165049848543, guid: 769de191aa08b404bb18f0b5409a4c0e,
+        type: 3}
+      propertyPath: maxHP
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711853165049848543, guid: 769de191aa08b404bb18f0b5409a4c0e,
+        type: 3}
+      propertyPath: defense
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8435793103191363184, guid: 769de191aa08b404bb18f0b5409a4c0e,
         type: 3}
       propertyPath: m_Name
@@ -105,6 +115,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a02ab94d7472274aab5ad7ab30b091c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oreData: {fileID: 11400000, guid: ab7dbcb66329cb340967e2537c82ccae, type: 2}
+  oreType: 2
   oreAmount: 0
-  type: Ruby

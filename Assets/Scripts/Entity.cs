@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 // This is the player class, originally it was supposed to be the base entity class for all entities but
 // since scripts are now component-based, it makes more sense to have dedicated classes for now.
 [RequireComponent(typeof(HealthComponent))]  // <- This is a thing btw
-public class Entity : MonoBehaviour
+public class Entity : MonoBehaviour, IAttackDirectionProvider
 {
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private GameInput gameInput;
@@ -53,7 +53,7 @@ public class Entity : MonoBehaviour
             Debug.LogError(gameObject.name + " has no Attack Component to set a swapped weapon to!");
             return;
         }
-        attackComponent.setWeaponSO(e.equipableSO);
+        attackComponent.SetWeaponSO(e.equipableSO);
     }
 
     private void Update()
@@ -121,8 +121,7 @@ public class Entity : MonoBehaviour
             Debug.Log(gameObject.name + " has no AttackComponent, cannot perform attack.");
             return;
         }
-        Vector3 damageDirection = GetMouseDirection();
-        attackComponent.PerformAttack(damageDirection);
+        attackComponent.PerformAttack();
     }
 
     // Temporary Method testing if player dies
@@ -146,5 +145,11 @@ public class Entity : MonoBehaviour
 
         characterController.Move(movementVector);
         transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
+    }
+
+    // Interface override that provides the player's AttackComponent a direction to attack with
+    public Vector3 GetNormalizedAttackDirectionVector()
+    {
+        return GetMouseDirection();
     }
 }

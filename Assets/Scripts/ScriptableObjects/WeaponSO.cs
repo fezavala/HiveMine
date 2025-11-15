@@ -13,6 +13,7 @@ public class WeaponSO : ScriptableObject
     [Range(1, 50)] public int toolDamage;  // Determines the damage done to walls and objects
     [Range(1, 50)] public int weaponPenetration;  // Amount of things the weapon can hit in a swing
     [Range(0f, 20)] public float weaponAttackRange; // The weapons reach
-    [Range(1f, 50f)] public float weaponAttackSpeed;  // How long a swing takes
+    [Range(1f, 50f)] public float weaponAttackSpeed;  // How fast attacks happen
+    // NOTE: weaponAttackCooldown currently unused, attack speed is used instead
     [Range(0f, 50f)] public float weaponAttackCooldown;  // Time between attacks
 }
