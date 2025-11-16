@@ -7,7 +7,7 @@
 
 ## How to Run
 1. Clone repository: `git clone https://github.com/fezavala/HiveMine`
-2. Open in Unity Version 2022.3.50f1 (note this version is not secure for now)
+2. Open in Unity Version 2022.3.62f3
 3. Run the project in the Unity Editor
 
 ## Features Implemented
