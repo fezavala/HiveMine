@@ -4,7 +4,6 @@ using System.Xml.Serialization;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using static TreeEditor.TreeEditorHelper;
 
 public class CraftingBench : MonoBehaviour, IUsable
 {
